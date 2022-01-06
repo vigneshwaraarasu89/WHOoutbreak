@@ -27,11 +27,16 @@ def url_scrape():
             outbreak_link =links.find_all('a',href=True) 
             article_link=links.find_all('span') 
             outbreak_date =str(article_link[2].get_text()).replace("|","")
-            outbreak_details = str(article_link[3].get_text())
-            outbreak_info = re.sub('ｰ', '–', str(article_link[3].get_text()))
-            outbreak_info = re.sub('-', '–', outbreak_info)
+            try:
+                outbreak_info = re.sub('ｰ', '–', str(article_link[3].get_text()))
+                outbreak_info = re.sub('-', '–', outbreak_info)
+            except IndexError:
+                outbreak_info = ""
             outbreak_details = outbreak_info.rsplit('–',1)
-            outbreak_country = outbreak_details[1]
+            try:
+                outbreak_country = outbreak_details[1]
+            except IndexError:
+                outbreak_country = "Not Available"
             outbreak_info = outbreak_details[0]
             outbreak_details = links['href']
             response['outbreak']=outbreak_info.strip()
