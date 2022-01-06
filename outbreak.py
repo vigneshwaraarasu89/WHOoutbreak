@@ -5,19 +5,18 @@ Created on Tue Dec 21 20:08:17 2021
 @author: Admin
 """
 import requests
-from flask import request
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import re
 import sys
 from bs4 import BeautifulSoup
 import json
+
 app = Flask(__name__)
 
 
 @app.route('/')
 def url_scrape():
     try:
-        
         outbreakList=[]
         page_no = request.args.get("page")
         url = 'https://www.who.int/emergencies/disease-outbreak-news/'+str(page_no)
